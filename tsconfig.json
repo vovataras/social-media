@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ],
+    "paths": {
+      "@boot": ["./src/boot"],
+      "@common": ["./src/common"],
+      "@components": ["./src/components"],
+      "@styles": ["./src/styles"],
+      "@typings": ["src/typings"],
+      "@views": ["./src/views"],
+      "@utils": ["./src/utils"],
+      "@redux": ["./src/redux"],
+      "@services": ["./src/services"],
+      "@public": ["./public/*"],
+      "@boot/*": ["./src/boot/*"],
+      "@common/*": ["./src/common/*"],
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@typings/*": ["./src/typings/*"],
+      "@views/*": ["./src/views/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@redux/*": ["./src/redux/*"],
+      "@services/*": ["./src/services/*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+}
