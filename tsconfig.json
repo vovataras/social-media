@@ -35,6 +35,8 @@
       "@utils": ["./src/utils"],
       "@redux": ["./src/redux"],
       "@services": ["./src/services"],
+      "@config": ["./src/config"],
+      "@constants": ["./src/constants"],
       "@public": ["./public/*"],
       "@boot/*": ["./src/boot/*"],
       "@common/*": ["./src/common/*"],
@@ -44,7 +46,9 @@
       "@views/*": ["./src/views/*"],
       "@utils/*": ["./src/utils/*"],
       "@redux/*": ["./src/redux/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@config/*": ["./src/config/*"],
+      "@constants/*": ["./src/constants/*"],
     }
   },
   "exclude": ["node_modules"],
