@@ -27,6 +27,29 @@ const signIn = (
   }
 }
 
+const signUp = (
+  email: string,
+  password: string,
+  onSuccess?: (user: firebase.default.User) => void,
+  onError?: (error: string) => void
+): AppThunk => async (dispatch) => {
+  dispatch(action(ActionType.SIGN_IN_BEGIN))
+
+  try {
+    const response = await firebaseAuth.createUserWithEmailAndPassword(
+      email,
+      password
+    )
+
+    onSuccess?.(response.user)
+    dispatch(action(ActionType.SIGN_IN_SUCCESS, response.user))
+  } catch (error) {
+    dispatch(action(ActionType.SIGN_IN_ERROR, error.message))
+    toast(error.message, { type: 'error' })
+    onError?.(error)
+  }
+}
+
 const signOut = (
   onSuccess?: () => void,
   onError?: (error: string) => void
@@ -58,6 +81,7 @@ const verifyAuth = (user: firebase.default.User | null): AppThunk => (
 const authActions = {
   verifyAuth,
   signIn,
+  signUp,
   signOut
 }
 

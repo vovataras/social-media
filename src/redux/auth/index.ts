@@ -15,6 +15,7 @@ const initialState: IState = {
 const authReducer = (state = initialState, action: Action): IState => {
   switch (action.type) {
     case ActionType.SIGN_IN_BEGIN:
+    case ActionType.SIGN_UP_BEGIN:
     case ActionType.SIGN_OUT_BEGIN:
       return {
         ...state,
@@ -22,6 +23,7 @@ const authReducer = (state = initialState, action: Action): IState => {
         error: null
       }
     case ActionType.SIGN_IN_SUCCESS:
+    case ActionType.SIGN_UP_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -36,6 +38,7 @@ const authReducer = (state = initialState, action: Action): IState => {
         error: null
       }
     case ActionType.SIGN_IN_ERROR:
+    case ActionType.SIGN_UP_ERROR:
     case ActionType.SIGN_OUT_ERROR:
       return {
         ...state,
