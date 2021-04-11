@@ -8,8 +8,8 @@ import {
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
 import reducer from '@redux'
-import { ReduxState, Action } from '@typings'
-import { isDev } from 'src/constants'
+import { ReduxState, Action, AnyAction } from '@typings'
+import { isDev, isServer } from 'src/constants'
 
 const persistConfig: PersistConfig<ReduxState> = {
   key: 'root',
@@ -29,7 +29,15 @@ const ConfigureStore = (onCompletion?: () => void): IConfigureStore => {
 
   const composeEnhancers = compose(applyMiddleware(...middleware))
   const persistedReducer = persistReducer(persistConfig, reducer)
-  const store = createStore(persistedReducer, composeEnhancers)
+
+  let store: Store<ReduxState, AnyAction>
+
+  if (isServer) {
+    store = createStore(reducer)
+  } else {
+    store = createStore(persistedReducer, composeEnhancers)
+  }
+
   const persistor = persistStore(store, undefined, onCompletion)
 
   return {
