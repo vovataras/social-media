@@ -1,0 +1,46 @@
+// px to rem
+@function rem($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
+@mixin f-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin f-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin f-center-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin f-center-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@mixin f-center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin f-center-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@mixin media($max) {
+  @media screen and (max-width: $max) {
+    @content;
+  }
+}

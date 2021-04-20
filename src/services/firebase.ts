@@ -3,7 +3,13 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import { firebaseConfig } from '@config'
 
-firebaseApp.initializeApp(firebaseConfig)
+if (!firebaseApp.apps.length) {
+  try {
+    firebaseApp.initializeApp(firebaseConfig)
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 export const firebaseAuth = firebaseApp.auth()
 
