@@ -20,6 +20,7 @@ export const signIn = (
 
     onSuccess?.(response.user)
     dispatch(action(ActionType.SIGN_IN_SUCCESS, response.user))
+    toast('Successfully logged in', { type: 'success' })
   } catch (error) {
     dispatch(action(ActionType.SIGN_IN_ERROR, error.message))
     toast(error.message, { type: 'error' })
@@ -33,7 +34,7 @@ export const signUp = (
   onSuccess?: (user: firebase.default.User) => void,
   onError?: (error: string) => void
 ): AppThunk => async (dispatch) => {
-  dispatch(action(ActionType.SIGN_IN_BEGIN))
+  dispatch(action(ActionType.SIGN_UP_BEGIN))
 
   try {
     const response = await firebaseAuth.createUserWithEmailAndPassword(
@@ -42,9 +43,10 @@ export const signUp = (
     )
 
     onSuccess?.(response.user)
-    dispatch(action(ActionType.SIGN_IN_SUCCESS, response.user))
+    dispatch(action(ActionType.SIGN_UP_SUCCESS, response.user))
+    toast('You have successfully registered', { type: 'success' })
   } catch (error) {
-    dispatch(action(ActionType.SIGN_IN_ERROR, error.message))
+    dispatch(action(ActionType.SIGN_UP_ERROR, error.message))
     toast(error.message, { type: 'error' })
     onError?.(error)
   }
