@@ -1,7 +1,14 @@
 import { Action as ReduxAction } from 'redux'
 import rootReducer from '@redux'
 
-export type ReduxState = ReturnType<typeof rootReducer>
+interface PersistState {
+  _persist?: {
+    version: number
+    rehydrated: boolean
+  }
+}
+
+export type ReduxState = ReturnType<typeof rootReducer> & PersistState
 export type Action = ReduxAction
 
 declare module 'react-redux' {

@@ -1,0 +1,24 @@
+@import '@styles/animations.scss';
+
+.loader {
+  $size: 5rem;
+
+  width: $size;
+  margin: auto;
+  height: $size;
+  border-radius: 50%;
+  border: 3px solid $primary-color;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: spin 2s ease infinite;
+
+  &.small {
+    width: 3rem;
+    height: 3rem;
+    border-width: 2px;
+  }
+
+  &.pagination {
+    margin-top: 3rem;
+  }
+}

@@ -5,6 +5,7 @@ import { Persistor } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import configureStore from './configure'
 import { setStore } from '@services/redux'
+import Loader from '@components/loader'
 
 interface Props {
   children?: React.ReactNode
@@ -37,7 +38,7 @@ class ReduxBoot extends React.Component<Props, State> {
     const { store, persistor } = this.state
 
     return (
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<Loader />} persistor={persistor}>
         <Provider store={store}>{children}</Provider>
       </PersistGate>
     )
