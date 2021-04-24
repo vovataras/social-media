@@ -4,7 +4,7 @@ import action from '@redux/action'
 import { firebaseAuth } from '@services/firebase'
 import { toast } from 'react-toastify'
 
-export const signIn = (
+const signIn = (
   email: string,
   password: string,
   onSuccess?: (user: firebase.default.User) => void,
@@ -28,7 +28,7 @@ export const signIn = (
   }
 }
 
-export const signUp = (
+const signUp = (
   email: string,
   password: string,
   onSuccess?: (user: firebase.default.User) => void,
@@ -52,25 +52,20 @@ export const signUp = (
   }
 }
 
-export const signOut = (
-  onSuccess?: () => void,
-  onError?: (error: string) => void
-): AppThunk => async (dispatch) => {
+const signOut = (): AppThunk => async (dispatch) => {
   dispatch(action(ActionType.SIGN_OUT_BEGIN))
 
   try {
     await firebaseAuth.signOut()
 
-    onSuccess?.()
     dispatch(action(ActionType.SIGN_OUT_SUCCESS))
   } catch (error) {
     dispatch(action(ActionType.SIGN_OUT_ERROR, error.message))
     toast(error.message, { type: 'error' })
-    onError?.(error)
   }
 }
 
-export const verifyAuth = (user: firebase.default.User | null): AppThunk => (
+const verifyAuth = (user: firebase.default.User | null): AppThunk => (
   dispatch
 ) => {
   if (user) {
@@ -79,6 +74,8 @@ export const verifyAuth = (user: firebase.default.User | null): AppThunk => (
     dispatch(action(ActionType.SIGN_OUT_SUCCESS))
   }
 }
+
+export { verifyAuth, signIn, signUp, signOut }
 
 const authActions = {
   verifyAuth,
