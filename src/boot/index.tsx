@@ -1,5 +1,6 @@
 import ReduxBoot from './redux'
 import MaterialUIBoot from './theme'
+import FirebaseBoot from './firebase'
 
 interface Props {
   children?: React.ReactNode
@@ -7,7 +8,9 @@ interface Props {
 
 const Boot: React.FC<Props> = ({ children }) => (
   <ReduxBoot>
-    <MaterialUIBoot>{children}</MaterialUIBoot>
+    <MaterialUIBoot>
+      <FirebaseBoot>{children}</FirebaseBoot>
+    </MaterialUIBoot>
   </ReduxBoot>
 )
 
