@@ -35,9 +35,11 @@ const Header: React.FC<Props> = ({ signOut }) => {
             </Link>
           </Typography>
           <Tooltip title="Add new post" aria-label="add new post">
-            <IconButton color="inherit">
-              <AddAPhotoIcon />
-            </IconButton>
+            <Link href={Routes.addPost}>
+              <IconButton color="inherit">
+                <AddAPhotoIcon />
+              </IconButton>
+            </Link>
           </Tooltip>
           <ProfileMenu onSignOut={signOut} />
         </Toolbar>

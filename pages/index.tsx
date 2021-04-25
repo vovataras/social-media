@@ -5,7 +5,7 @@ import PrivateRoute from '@utils/private-route'
 const HomePage = () => (
   <PrivateRoute>
     <Head>
-      <title>{'Social Media Sign In'}</title>
+      <title>{'Social Media'}</title>
     </Head>
     <HomeView />
   </PrivateRoute>

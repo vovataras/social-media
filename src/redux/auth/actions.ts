@@ -39,11 +39,6 @@ const signUp = (
   dispatch(action(ActionType.SIGN_UP_BEGIN))
 
   try {
-    // const response = await firebaseAuth.createUserWithEmailAndPassword(
-    //   email,
-    //   password
-    // )
-
     const response = await createUser(username, email, password)
 
     onSuccess?.(response.user)
