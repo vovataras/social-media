@@ -79,7 +79,7 @@ const SignInForm: React.FC<Props> = ({ handleSubmit }) => {
         className={styles.submit}
         disabled={isSubmitting}
       >
-        {'Sign in'}
+        {isSubmitting ? 'Loading...' : 'Sign in'}
       </Button>
     </form>
   )

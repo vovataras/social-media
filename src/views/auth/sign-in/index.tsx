@@ -18,19 +18,9 @@ const SignInView: React.FC<Props> = ({ signIn }) => {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    formikHelpers.setSubmitting(true)
-
-    signIn(
-      values.email,
-      values.password,
-      () => {
-        formikHelpers.setSubmitting(false)
-        formikHelpers.resetForm()
-      },
-      () => {
-        formikHelpers.setSubmitting(false)
-      }
-    )
+    await signIn(values.email, values.password, () => {
+      formikHelpers.resetForm()
+    })
   }
 
   return (

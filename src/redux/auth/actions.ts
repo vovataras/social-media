@@ -1,8 +1,9 @@
-import { AppThunk } from '@typings'
-import ActionType from './types'
+import { toast } from 'react-toastify'
 import action from '@redux/action'
 import { firebaseAuth } from '@services/firebase'
-import { toast } from 'react-toastify'
+import { createUser } from '@services/auth'
+import { AppThunk } from '@typings'
+import ActionType from './types'
 
 const signIn = (
   email: string,
@@ -29,6 +30,7 @@ const signIn = (
 }
 
 const signUp = (
+  username: string,
   email: string,
   password: string,
   onSuccess?: (user: firebase.default.User) => void,
@@ -37,10 +39,12 @@ const signUp = (
   dispatch(action(ActionType.SIGN_UP_BEGIN))
 
   try {
-    const response = await firebaseAuth.createUserWithEmailAndPassword(
-      email,
-      password
-    )
+    // const response = await firebaseAuth.createUserWithEmailAndPassword(
+    //   email,
+    //   password
+    // )
+
+    const response = await createUser(username, email, password)
 
     onSuccess?.(response.user)
     dispatch(action(ActionType.SIGN_UP_SUCCESS, response.user))

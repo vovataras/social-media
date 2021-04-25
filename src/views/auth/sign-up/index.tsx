@@ -19,19 +19,9 @@ const SignUpView: React.FC<Props> = ({ signUp }) => {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    formikHelpers.setSubmitting(true)
-
-    signUp(
-      values.email,
-      values.password,
-      () => {
-        formikHelpers.setSubmitting(false)
-        formikHelpers.resetForm()
-      },
-      () => {
-        formikHelpers.setSubmitting(false)
-      }
-    )
+    await signUp(values.username, values.email, values.password, () => {
+      formikHelpers.resetForm()
+    })
   }
 
   return (

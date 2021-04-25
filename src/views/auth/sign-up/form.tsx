@@ -4,10 +4,10 @@ import styles from '../styles.module.scss'
 import * as Yup from 'yup'
 
 const SignUpSchema = Yup.object().shape({
-  // username: Yup.string()
-  //   .min(3, 'Too Short!')
-  //   .max(15, 'Too Long!')
-  //   .required('Required'),
+  username: Yup.string()
+    .min(3, 'Too Short!')
+    .max(15, 'Too Long!')
+    .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
@@ -15,13 +15,13 @@ const SignUpSchema = Yup.object().shape({
 })
 
 export interface FormValues {
-  // username: string
+  username: string
   email: string
   password: string
 }
 
 const initialValues: FormValues = {
-  // username: '',
+  username: '',
   email: '',
   password: ''
 }
@@ -51,7 +51,7 @@ const SignUpForm: React.FC<Props> = ({ handleSubmit }) => {
 
   return (
     <form onSubmit={formik.handleSubmit} className={styles.form}>
-      {/* <TextField
+      <TextField
         name="username"
         label="Username"
         variant="outlined"
@@ -64,7 +64,7 @@ const SignUpForm: React.FC<Props> = ({ handleSubmit }) => {
         }
         onChange={handleChange}
         value={values.username}
-      /> */}
+      />
       <TextField
         name="email"
         label="Email"
@@ -100,7 +100,7 @@ const SignUpForm: React.FC<Props> = ({ handleSubmit }) => {
         className={styles.submit}
         disabled={isSubmitting}
       >
-        {'Sign up'}
+        {isSubmitting ? 'Loading...' : 'Sign up'}
       </Button>
     </form>
   )
