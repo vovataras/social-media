@@ -1,4 +1,4 @@
-import { Post } from '@typings'
+import { Post, ReduxAction } from '@typings'
 
 enum ActionType {
   SET_POSTS = 'posts/SET_POSTS',
@@ -6,19 +6,9 @@ enum ActionType {
   RESET_STATE = 'posts/RESET_STATE'
 }
 
-type SetPosts = {
-  type: typeof ActionType.SET_POSTS
-  posts: Post[]
-}
-
-type SetError = {
-  type: typeof ActionType.SET_ERROR
-  error: string
-}
-
-type ResetState = {
-  type: typeof ActionType.RESET_STATE
-}
+type SetPosts = ReduxAction<ActionType.SET_POSTS, Post[]>
+type SetError = ReduxAction<ActionType.SET_ERROR, string>
+type ResetState = ReduxAction<ActionType.RESET_STATE>
 
 export type Action = SetPosts | SetError | ResetState
 

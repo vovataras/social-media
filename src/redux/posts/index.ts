@@ -20,13 +20,13 @@ const postsReducer = (state = initialState, action: Action): PostsState => {
         ...state,
         error: null,
         isLoaded: true,
-        items: action.posts
+        items: action.payload
       }
     case ActionType.SET_ERROR:
       return {
         ...state,
         isLoaded: true,
-        error: action.error
+        error: action.payload
       }
     case ActionType.RESET_STATE:
       return {

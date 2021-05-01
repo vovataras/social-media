@@ -1,4 +1,4 @@
-import { User } from '@typings'
+import { ReduxAction, User } from '@typings'
 
 enum ActionType {
   SET_USERS = 'users/SET_USERS',
@@ -6,19 +6,9 @@ enum ActionType {
   RESET_STATE = 'users/RESET_STATE'
 }
 
-type SetUsers = {
-  type: typeof ActionType.SET_USERS
-  users: User[]
-}
-
-type SetError = {
-  type: typeof ActionType.SET_ERROR
-  error: string
-}
-
-type ResetState = {
-  type: typeof ActionType.RESET_STATE
-}
+type SetUsers = ReduxAction<ActionType.SET_USERS, User[]>
+type SetError = ReduxAction<ActionType.SET_ERROR, string>
+type ResetState = ReduxAction<ActionType.RESET_STATE>
 
 export type Action = SetUsers | SetError | ResetState
 

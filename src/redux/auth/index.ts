@@ -1,18 +1,18 @@
 import ActionType, { Action } from './types'
 
-export interface IState {
+export interface AuthState {
   isLoading: boolean
   user: firebase.default.User | null
   error: string | null
 }
 
-const initialState: IState = {
+const initialState: AuthState = {
   isLoading: false,
   user: null,
   error: null
 }
 
-const authReducer = (state = initialState, action: Action): IState => {
+const authReducer = (state = initialState, action: Action): AuthState => {
   switch (action.type) {
     case ActionType.SIGN_IN_BEGIN:
     case ActionType.SIGN_UP_BEGIN:

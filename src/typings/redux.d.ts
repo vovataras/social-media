@@ -18,9 +18,15 @@ declare module 'react-redux' {
 type AuthActionType = import('@redux/auth/types').default
 type AuthAction = import('@redux/auth/types').Action
 
-export type AnyActionType = AuthActionType
+type PostsActionType = import('@redux/posts/types').default
+type PostsAction = import('@redux/posts/types').Action
 
-export type AnyAction = AuthAction
+type UsersActionType = import('@redux/users/types').default
+type UsersAction = import('@redux/users/types').Action
+
+export type AnyActionType = AuthActionType | PostsActionType | UsersActionType
+
+export type AnyAction = AuthAction | PostsAction | UsersAction
 
 type CoreReduxAction<T = unknown> = import('redux').Action<T>
 

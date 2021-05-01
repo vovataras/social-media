@@ -35,10 +35,6 @@ const HomeView: React.FC<Props> = ({
 }) => {
   const isMobile = useMediaQuery('(max-width: 425px)')
 
-  if (!isUsersLoaded && !isPostsLoaded) return <Loader small />
-  if (usersError) return <>{usersError}</>
-  if (postsError) return <>{postsError}</>
-
   const getPostsData = () => {
     const postsData: Array<PostProps> = []
 
@@ -53,8 +49,12 @@ const HomeView: React.FC<Props> = ({
 
   const renderItems = postsData.map((post, i) => <Post {...post} key={i} />)
 
+  // TODO: refactor
   return (
     <Layout>
+      {!isUsersLoaded && !isPostsLoaded && <Loader small />}
+      {usersError && <>{usersError}</>}
+      {postsError && <>{postsError}</>}
       <View isMobile={isMobile} posts={renderItems} />
     </Layout>
   )

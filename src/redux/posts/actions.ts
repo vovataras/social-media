@@ -1,16 +1,14 @@
-import { Post } from '@typings'
-import ActionType, { Action } from './types'
+import action from '@redux/action'
+import { AppThunk, Post } from '@typings'
+import ActionType from './types'
 
-export const setPosts = (posts: Post[]): Action => ({
-  type: ActionType.SET_POSTS,
-  posts
-})
+const setPosts = (posts: Post[]): AppThunk => (dispatch) =>
+  dispatch(action(ActionType.SET_POSTS, posts))
 
-export const setPostsError = (error: string): Action => ({
-  type: ActionType.SET_ERROR,
-  error
-})
+const setPostsError = (error: string): AppThunk => (dispatch) =>
+  dispatch(action(ActionType.SET_ERROR, error))
 
-export const resetPostsState = (): Action => ({
-  type: ActionType.RESET_STATE
-})
+const resetPostsState = (): AppThunk => (dispatch) =>
+  dispatch(action(ActionType.RESET_STATE))
+
+export { setPosts, setPostsError, resetPostsState }

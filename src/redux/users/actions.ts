@@ -1,16 +1,14 @@
-import { User } from '@typings'
-import ActionType, { Action } from './types'
+import action from '@redux/action'
+import { AppThunk, User } from '@typings'
+import ActionType from './types'
 
-export const setUsers = (users: User[]): Action => ({
-  type: ActionType.SET_USERS,
-  users
-})
+const setUsers = (users: User[]): AppThunk => (dispatch) =>
+  dispatch(action(ActionType.SET_USERS, users))
 
-export const setUsersError = (error: string): Action => ({
-  type: ActionType.SET_ERROR,
-  error
-})
+const setUsersError = (error: string): AppThunk => (dispatch) =>
+  dispatch(action(ActionType.SET_ERROR, error))
 
-export const resetUsersState = (): Action => ({
-  type: ActionType.RESET_STATE
-})
+const resetUsersState = (): AppThunk => (dispatch) =>
+  dispatch(action(ActionType.RESET_STATE))
+
+export { setUsers, setUsersError, resetUsersState }
