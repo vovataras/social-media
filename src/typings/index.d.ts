@@ -33,3 +33,23 @@ export interface Post extends PostCreate {
 }
 
 export interface PostWithUser extends Post, User {}
+
+export interface CommentCreate {
+  postUid: string
+  postId: string
+  authorUid: string
+  commentText: string
+  date: string
+}
+export interface Comment extends CommentCreate {
+  id: string
+}
+
+export interface CommentWithUser {
+  id: string
+  authorUid: string
+  username: string
+  avatar?: string
+  commentText: string
+  date: string
+}

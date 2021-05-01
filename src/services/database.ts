@@ -1,8 +1,9 @@
 import { firestore } from './firebase'
-import { Post, PostCreate, User } from '@typings'
+import { Comment, CommentCreate, Post, PostCreate, User } from '@typings'
 
 const usersCollectionRef = firestore.collection('users')
 const postsCollectionRef = firestore.collectionGroup('posts')
+const commentsCollectionRef = firestore.collectionGroup('comments')
 
 const usersCollection = {
   create: (user: User) => {
@@ -65,4 +66,58 @@ const userPostsCollection = {
   }
 }
 
-export { usersCollection, postsCollection, userPostsCollection }
+const commentsCollection = {
+  create: (comment: CommentCreate) => {
+    const postRef = usersCollectionRef
+      .doc(comment.postUid)
+      .collection('posts')
+      .doc(comment.postId)
+
+    const newCommentRef = postRef.collection('comments').doc()
+
+    newCommentRef.set({
+      id: newCommentRef.id,
+      ...comment
+    })
+
+    firestore.runTransaction((transaction) => {
+      return transaction.get(postRef).then((postDoc) => {
+        if (postDoc.exists) {
+          const post = postDoc.data() as Post
+          const newComments: Comment[] = []
+
+          if (post.comments) {
+            if (post.comments.length === 2) {
+              newComments.push(post.comments[1])
+            } else if (post.comments.length === 1) {
+              newComments.push(post.comments[0])
+            }
+          }
+
+          newComments.push({
+            id: newCommentRef.id,
+            ...comment
+          })
+
+          transaction.update(postRef, {
+            comments: newComments
+          })
+        }
+      })
+    })
+  },
+  ref: commentsCollectionRef,
+  getRef: (postUid: string, postId: string) =>
+    usersCollection.ref
+      .doc(postUid)
+      .collection('posts')
+      .doc(postId)
+      .collection('comments')
+}
+
+export {
+  usersCollection,
+  postsCollection,
+  userPostsCollection,
+  commentsCollection
+}
