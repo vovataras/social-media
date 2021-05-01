@@ -12,10 +12,13 @@ import {
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ModeCommentIcon from '@material-ui/icons/ModeComment'
 import Link from 'next/link'
+import cn from 'classnames'
+import { Likes } from '@typings'
 
 import styles from './styles.module.scss'
 
 export interface Props {
+  currentUID?: string
   profileLink?: string
   username: string
   avatar?: string
@@ -24,10 +27,13 @@ export interface Props {
   description?: string | null
   date?: string
   likesCount?: number
+  likes?: Likes
   postPreview?: boolean
+  onLikeClick?: () => void
 }
 
 const PostCard: React.FC<Props> = ({
+  currentUID,
   profileLink,
   username,
   avatar,
@@ -36,7 +42,9 @@ const PostCard: React.FC<Props> = ({
   description,
   date,
   likesCount,
-  postPreview
+  likes,
+  postPreview,
+  onLikeClick
 }) => {
   const Header = (
     <CardHeader
@@ -68,8 +76,12 @@ const PostCard: React.FC<Props> = ({
         </CardContent>
       )}
       <CardActions>
-        <IconButton aria-label="like">
-          <FavoriteIcon />
+        <IconButton aria-label="like" onClick={onLikeClick}>
+          <FavoriteIcon
+            className={cn(
+              likes && currentUID && likes[currentUID] && styles.liked
+            )}
+          />
         </IconButton>
         {likesCount}
         {postPreview && '∞'}

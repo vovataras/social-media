@@ -9,6 +9,7 @@ import { ReduxState } from '@typings'
 import View from './view'
 
 const mapStateToProps = (state: ReduxState) => ({
+  currentUID: state.auth.user?.uid,
   isUsersLoaded: state.users.isLoaded,
   usersError: state.users.error,
   users: state.users.items,
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const HomeView: React.FC<Props> = ({
+  currentUID,
   isUsersLoaded,
   usersError,
   users,
@@ -36,13 +38,17 @@ const HomeView: React.FC<Props> = ({
   const isMobile = useMediaQuery('(max-width: 425px)')
 
   const getPostsData = () => {
-    const postsData: Array<PostProps> = []
+    if (currentUID) {
+      const postsData: Array<PostProps> = posts.map((post) => ({
+        post,
+        users,
+        currentUID
+      }))
 
-    posts.forEach((post) => {
-      postsData.push({ post, users })
-    })
-
-    return postsData
+      return postsData
+    } else {
+      return []
+    }
   }
 
   const postsData = useMemo(getPostsData, [posts, users])

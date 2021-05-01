@@ -1,13 +1,15 @@
 import React from 'react'
 import PostCard from '@common/post-card'
-import { Post, User } from '@typings'
+import { Post as PostType, User } from '@typings'
+import { postsCollection } from '@services/database'
 
 export interface PostProps {
-  post: Post
+  post: PostType
   users: User[]
+  currentUID: string
 }
 
-const PostWithComments: React.FC<PostProps> = ({ post, users }) => {
+const Post: React.FC<PostProps> = ({ post, users, currentUID }) => {
   const { uid, date, ...postData } = post
 
   const userData = users.find((user) => user.uid === uid)
@@ -19,14 +21,20 @@ const PostWithComments: React.FC<PostProps> = ({ post, users }) => {
 
   const { username, avatar } = userData
 
+  const handleLikeClick = () => {
+    postsCollection.toggleLike(uid, postData.id, currentUID)
+  }
+
   return (
     <PostCard
+      currentUID={currentUID}
       username={username}
       avatar={avatar}
       {...postData}
       date={formattedDate}
+      onLikeClick={handleLikeClick}
     />
   )
 }
 
-export default React.memo(PostWithComments)
+export default React.memo(Post)
