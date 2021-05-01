@@ -1,8 +1,8 @@
 import { verifyAuth } from '@redux/auth/actions'
 import { setPosts, setPostsError } from '@redux/posts/actions'
 import { setUsers, setUsersError } from '@redux/users/actions'
-import { postsCollection, usersCollection } from '@services/database'
 import { firebaseAuth } from '@services/firebase'
+import { subscribePosts, subscribeUsers } from '@services/listeners'
 import { Post, ReduxState, User } from '@typings'
 import { useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
@@ -39,31 +39,21 @@ const FirebaseBoot: React.FC<Props> = ({
       verifyAuth(user)
     })
 
-    const unsubscribeUsers = usersCollection.ref.onSnapshot(
-      (snapshot) => {
-        if (!snapshot.empty) {
-          const users = snapshot.docs.map((doc) => doc.data() as User)
-          setUsers(users)
-        } else {
-          setUsersError('No users found')
-        }
+    const unsubscribeUsers = subscribeUsers(
+      (users: User[]) => {
+        setUsers(users)
       },
-      (error) => {
-        setUsersError(error.message)
+      (error: string) => {
+        setUsersError(error)
       }
     )
 
-    const unsubscribePosts = postsCollection.ref.onSnapshot(
-      (snapshot) => {
-        if (!snapshot.empty) {
-          const posts = snapshot.docs.map((doc) => doc.data() as Post)
-          setPosts(posts)
-        } else {
-          setPostsError('No posts found')
-        }
+    const unsubscribePosts = subscribePosts(
+      (posts: Post[]) => {
+        setPosts(posts)
       },
-      (error) => {
-        setPostsError(error.message)
+      (error: string) => {
+        setPostsError(error)
       }
     )
 
