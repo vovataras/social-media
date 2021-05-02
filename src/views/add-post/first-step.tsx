@@ -20,10 +20,10 @@ const FirstStep: React.FC<Props> = ({
   setImgError
 }) => {
   const loadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!!event) {
+    if (event) {
       const imgFile = event.target.files![0]
 
-      let imageSrc = URL.createObjectURL(imgFile)
+      const imageSrc = URL.createObjectURL(imgFile)
       setImage(imageSrc)
 
       setImgFile(imgFile)
@@ -35,7 +35,7 @@ const FirstStep: React.FC<Props> = ({
   return (
     <div className={styles.firstStep}>
       <UploadButton title="Select photo" onChange={loadFile} />
-      {!!image ? (
+      {image ? (
         <Card className={styles.card} square>
           <CardMedia className={styles.media} image={image} />
         </Card>

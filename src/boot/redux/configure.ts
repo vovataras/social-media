@@ -23,7 +23,7 @@ export interface IConfigureStore {
 }
 
 const ConfigureStore = (onCompletion?: () => void): IConfigureStore => {
-  let middleware: Middleware[] = []
+  const middleware: Middleware[] = []
 
   if (isClient) {
     middleware.push(thunk)

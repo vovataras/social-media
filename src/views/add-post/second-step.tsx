@@ -15,8 +15,8 @@ const SecondStep: React.FC<Props> = ({
   image
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!!event) {
-      let description = event.target.value
+    if (event) {
+      const description = event.target.value
       setDescription(description)
     }
   }

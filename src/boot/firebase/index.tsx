@@ -21,9 +21,7 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-interface Props extends ConnectedProps<typeof connector> {}
-
-interface Props {
+interface Props extends ConnectedProps<typeof connector> {
   children?: React.ReactNode
 }
 

@@ -8,7 +8,7 @@ import ActionType from './types'
 const signIn = (
   email: string,
   password: string,
-  onSuccess?: (user: firebase.default.User) => void,
+  onSuccess?: (user: firebase.default.User | null) => void,
   onError?: (error: string) => void
 ): AppThunk => async (dispatch) => {
   dispatch(action(ActionType.SIGN_IN_BEGIN))
@@ -33,7 +33,7 @@ const signUp = (
   username: string,
   email: string,
   password: string,
-  onSuccess?: (user: firebase.default.User) => void,
+  onSuccess?: (user: firebase.default.User | null) => void,
   onError?: (error: string) => void
 ): AppThunk => async (dispatch) => {
   dispatch(action(ActionType.SIGN_UP_BEGIN))

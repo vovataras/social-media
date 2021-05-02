@@ -10,8 +10,9 @@ export const createUser = async (
     email,
     password
   )
+
   await usersCollection.create({
-    uid: user.user.uid,
+    uid: user.user?.uid || '',
     username: username
   })
 
