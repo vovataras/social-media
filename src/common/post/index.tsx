@@ -64,6 +64,7 @@ const Post: React.FC<PostProps> = ({ post, users, currentUID }) => {
     <div>
       <PostCard
         currentUID={currentUID}
+        postId={postData.id}
         username={username}
         avatar={avatar}
         {...postData}

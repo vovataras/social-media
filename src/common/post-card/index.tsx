@@ -14,11 +14,13 @@ import ModeCommentIcon from '@material-ui/icons/ModeComment'
 import Link from 'next/link'
 import cn from 'classnames'
 import { Likes } from '@typings'
+import Routes from '@constants/routes'
 
 import styles from './styles.module.scss'
 
 export interface Props {
   currentUID?: string
+  postId?: string
   profileLink?: string
   username: string
   avatar?: string
@@ -34,6 +36,7 @@ export interface Props {
 
 const PostCard: React.FC<Props> = ({
   currentUID,
+  postId,
   profileLink,
   username,
   avatar,
@@ -85,9 +88,24 @@ const PostCard: React.FC<Props> = ({
         </IconButton>
         {likesCount}
         {postPreview && '∞'}
-        <IconButton aria-label="comment">
-          <ModeCommentIcon />
-        </IconButton>
+        {postId ? (
+          <Link
+            href={{
+              pathname: Routes.post,
+              query: { id: postId }
+            }}
+          >
+            <a>
+              <IconButton aria-label="comment">
+                <ModeCommentIcon />
+              </IconButton>
+            </a>
+          </Link>
+        ) : (
+          <IconButton aria-label="comment">
+            <ModeCommentIcon />
+          </IconButton>
+        )}
       </CardActions>
     </Card>
   )

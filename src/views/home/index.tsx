@@ -22,10 +22,6 @@ const connector = connect(mapStateToProps)
 
 interface Props extends ConnectedProps<typeof connector> {}
 
-interface Props {
-  children?: React.ReactNode
-}
-
 const HomeView: React.FC<Props> = ({
   currentUID,
   isUsersLoaded,
