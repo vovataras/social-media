@@ -152,13 +152,8 @@ const Profile: React.FC<Props> = ({
     setOpen(false)
   }
 
-  const getContent = (
-    posts: PostType[],
-    currentUID: string,
-    isOwner: boolean,
-    users: User[]
-  ) => {
-    const content = userPosts.map((value) => {
+  const getContent = (posts: PostType[], currentUID: string, users: User[]) => {
+    const content = posts.map((value) => {
       return (
         <Post
           key={value.id}
@@ -179,24 +174,19 @@ const Profile: React.FC<Props> = ({
   const setContent = (
     error: string | null,
     posts: PostType[] | null,
-    isOwner: boolean,
     users: User[] | null
   ) => {
     if (error) {
       content = <Paper className={styles.errorPaper}>{error}</Paper>
     } else if (posts && users) {
-      content = getContent(posts, user.uid, isOwner, users)
+      content = getContent(posts, user.uid, users)
     } else {
       // content = <LayoutError error="Something went wrong." />
       content = <>{'Something went wrong.'}</>
     }
   }
 
-  if (isOwner) {
-    setContent(postsError, posts, true, users)
-  } else {
-    setContent(postsError, posts, false, users)
-  }
+  setContent(postsError, userPosts, users)
 
   return (
     <>
