@@ -4,14 +4,21 @@ import { CommentCreate, Post as PostType, User } from '@typings'
 import { commentsCollection, postsCollection } from '@services/database'
 import Comment from '@common/comment'
 import CommentForm from '@common/comment-form'
+import Routes from '@constants/routes'
 
 export interface PostProps {
   post: PostType
   users: User[]
   currentUID: string
+  isProfilePage?: boolean
 }
 
-const Post: React.FC<PostProps> = ({ post, users, currentUID }) => {
+const Post: React.FC<PostProps> = ({
+  post,
+  users,
+  currentUID,
+  isProfilePage
+}) => {
   const { uid, date, ...postData } = post
 
   const userData = users.find((user) => user.uid === uid)
@@ -20,6 +27,10 @@ const Post: React.FC<PostProps> = ({ post, users, currentUID }) => {
   }
 
   const formattedDate = new Date(date).toDateString()
+
+  const profileLink = isProfilePage
+    ? undefined
+    : Routes.profileId.replace('[id]', userData.uid)
 
   const { username, avatar } = userData
 
@@ -63,6 +74,7 @@ const Post: React.FC<PostProps> = ({ post, users, currentUID }) => {
   return (
     <div>
       <PostCard
+        profileLink={profileLink}
         currentUID={currentUID}
         postId={postData.id}
         username={username}

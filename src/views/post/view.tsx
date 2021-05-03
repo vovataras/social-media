@@ -5,6 +5,7 @@ import CommentForm from '@common/comment-form'
 import PostCard from '@common/post-card'
 import { CommentWithUser, Post, User } from '@typings'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import Routes from '@constants/routes'
 
 import styles from './styles.module.scss'
 
@@ -30,6 +31,8 @@ const PostView: React.FC<Props> = ({
   const { image, date, description, likes, likesCount } = postData
   const { username, avatar } = postAuthorData
 
+  const profileLink = Routes.profileId.replace('[id]', postAuthorData.uid)
+
   const renderItems = commentsData.map((item, index) => (
     <Comment
       key={index}
@@ -54,6 +57,7 @@ const PostView: React.FC<Props> = ({
         </Button>
 
         <PostCard
+          profileLink={profileLink}
           currentUID={currentUID}
           username={username}
           avatar={avatar}

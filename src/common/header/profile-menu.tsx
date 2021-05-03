@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { Menu, MenuItem, Divider, IconButton, Tooltip } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import Routes from '@constants/routes'
 
 import styles from './styles.module.scss'
 
@@ -39,9 +41,9 @@ const ProfileMenu: React.FC<Props> = ({ onSignOut }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {/* <Link to={Routes.PROFILE}>
-          <MenuItem>Profile</MenuItem>
-        </Link> */}
+        <Link href={Routes.profile}>
+          <MenuItem>{'Profile'}</MenuItem>
+        </Link>
         <Divider />
         <MenuItem onClick={onSignOut}>{'Exit'}</MenuItem>
       </Menu>
