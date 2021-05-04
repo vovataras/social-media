@@ -160,6 +160,7 @@ const Profile: React.FC<Props> = ({
           currentUID={currentUID}
           post={value}
           users={users}
+          showSettings={isOwner}
           isProfilePage
         />
       )

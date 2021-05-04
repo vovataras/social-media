@@ -15,6 +15,7 @@ import Link from 'next/link'
 import cn from 'classnames'
 import { Likes } from '@typings'
 import Routes from '@constants/routes'
+import PostSettings from './post-settings'
 
 import styles from './styles.module.scss'
 
@@ -31,7 +32,9 @@ export interface Props {
   likesCount?: number
   likes?: Likes
   postPreview?: boolean
+  showSettings?: boolean
   onLikeClick?: () => void
+  onPostDelete?: () => void
 }
 
 const PostCard: React.FC<Props> = ({
@@ -47,7 +50,9 @@ const PostCard: React.FC<Props> = ({
   likesCount,
   likes,
   postPreview,
-  onLikeClick
+  showSettings,
+  onLikeClick,
+  onPostDelete
 }) => {
   const Header = (
     <CardHeader
@@ -56,6 +61,7 @@ const PostCard: React.FC<Props> = ({
           {username && username[0].toUpperCase()}
         </Avatar>
       }
+      action={showSettings && <PostSettings onPostDelete={onPostDelete} />}
       title={username}
       subheader={date}
     />

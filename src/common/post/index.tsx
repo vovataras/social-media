@@ -1,7 +1,11 @@
 import React from 'react'
 import PostCard from '@common/post-card'
 import { CommentCreate, Post as PostType, User } from '@typings'
-import { commentsCollection, postsCollection } from '@services/database'
+import {
+  commentsCollection,
+  postsCollection,
+  userPostsCollection
+} from '@services/database'
 import Comment from '@common/comment'
 import CommentForm from '@common/comment-form'
 import Routes from '@constants/routes'
@@ -10,6 +14,7 @@ export interface PostProps {
   post: PostType
   users: User[]
   currentUID: string
+  showSettings?: boolean
   isProfilePage?: boolean
 }
 
@@ -17,6 +22,7 @@ const Post: React.FC<PostProps> = ({
   post,
   users,
   currentUID,
+  showSettings,
   isProfilePage
 }) => {
   const { uid, date, ...postData } = post
@@ -35,6 +41,10 @@ const Post: React.FC<PostProps> = ({
   const { username, avatar } = userData
 
   let mappedComments: Array<JSX.Element | null> | JSX.Element | null = null
+
+  const handlePostDelete = () => {
+    userPostsCollection.delete(post.uid, post.id)
+  }
 
   const handleLikeClick = () => {
     postsCollection.toggleLike(uid, postData.id, currentUID)
@@ -82,6 +92,8 @@ const Post: React.FC<PostProps> = ({
         {...postData}
         date={formattedDate}
         onLikeClick={handleLikeClick}
+        showSettings={showSettings}
+        onPostDelete={showSettings ? handlePostDelete : undefined}
       />
       {mappedComments}
       <CommentForm onSubmit={handleCommentSubmit} />
