@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Menu, MenuItem, Divider, IconButton, Tooltip } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import Routes from '@constants/routes'
+import useDarkMode from 'use-dark-mode'
 
 import styles from './styles.module.scss'
 
@@ -12,6 +13,8 @@ interface Props {
 
 const ProfileMenu: React.FC<Props> = ({ onSignOut }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
+  const { toggle: toggleDarkMode } = useDarkMode()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -44,6 +47,8 @@ const ProfileMenu: React.FC<Props> = ({ onSignOut }) => {
         <Link href={Routes.profile}>
           <MenuItem>{'Profile'}</MenuItem>
         </Link>
+        <Divider />
+        <MenuItem onClick={toggleDarkMode}>{'Toggle theme'}</MenuItem>
         <Divider />
         <MenuItem onClick={onSignOut}>{'Exit'}</MenuItem>
       </Menu>
