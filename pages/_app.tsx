@@ -1,11 +1,14 @@
 import Boot from '@boot'
-import '@styles/globals.scss'
-
 import { AppProps } from 'next/app'
+import { ToastContainer } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
+import '@styles/globals.scss'
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <Boot>
+      <ToastContainer />
       <Component {...pageProps} />
     </Boot>
   )

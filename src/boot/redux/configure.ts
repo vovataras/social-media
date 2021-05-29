@@ -8,8 +8,9 @@ import {
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
 import reducer from '@redux'
-import { ReduxState, Action } from '@typings'
-import { isDev } from 'src/constants'
+import { ReduxState, Action, AnyAction } from '@typings'
+import { isClient, isDev, isServer } from '@constants'
+import thunk from 'redux-thunk'
 
 const persistConfig: PersistConfig<ReduxState> = {
   key: 'root',
@@ -22,14 +23,27 @@ export interface IConfigureStore {
 }
 
 const ConfigureStore = (onCompletion?: () => void): IConfigureStore => {
-  let middleware: Middleware[] = []
-  if (isDev) {
-    middleware = [...middleware, logger]
+  const middleware: Middleware[] = []
+
+  if (isClient) {
+    middleware.push(thunk)
+
+    if (isDev) {
+      middleware.push(logger)
+    }
   }
 
   const composeEnhancers = compose(applyMiddleware(...middleware))
   const persistedReducer = persistReducer(persistConfig, reducer)
-  const store = createStore(persistedReducer, composeEnhancers)
+
+  let store: Store<ReduxState, AnyAction>
+
+  if (isServer) {
+    store = createStore(reducer)
+  } else {
+    store = createStore(persistedReducer, composeEnhancers)
+  }
+
   const persistor = persistStore(store, undefined, onCompletion)
 
   return {

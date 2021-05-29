@@ -1,0 +1,16 @@
+.loader {
+  $size: 5rem;
+
+  width: $size;
+  margin: auto;
+  height: $size;
+
+  &.small {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &.pagination {
+    margin-top: 3rem;
+  }
+}

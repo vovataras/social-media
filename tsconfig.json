@@ -11,7 +11,7 @@
     "sourceMap": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -35,6 +35,8 @@
       "@utils": ["./src/utils"],
       "@redux": ["./src/redux"],
       "@services": ["./src/services"],
+      "@config": ["./src/config"],
+      "@constants": ["./src/constants"],
       "@public": ["./public/*"],
       "@boot/*": ["./src/boot/*"],
       "@common/*": ["./src/common/*"],
@@ -44,9 +46,11 @@
       "@views/*": ["./src/views/*"],
       "@utils/*": ["./src/utils/*"],
       "@redux/*": ["./src/redux/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@config/*": ["./src/config/*"],
+      "@constants/*": ["./src/constants/*"],
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"]
 }
