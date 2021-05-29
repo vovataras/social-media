@@ -13,6 +13,10 @@
   height: 100%;
   overflow-y: auto;
 
+  &.mobile {
+    max-width: 100%;
+  }
+
   :global(.MuiListItemText-secondary) {
     overflow-x: hidden;
   }
@@ -23,9 +27,15 @@
   position: relative;
 
   .chatInfo {
-    top: 0;
+    @include f-center-start;
     width: 100%;
     position: absolute;
+    top: 0;
+  }
+
+  .backLink {
+    margin-left: rem(10px);
+    margin-right: rem(-10px);
   }
 
   .errorMessage {

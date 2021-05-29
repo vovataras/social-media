@@ -1,9 +1,19 @@
 import React from 'react'
 import classNames from 'classnames'
-import { Avatar, Card, CardHeader, Paper, Typography } from '@material-ui/core'
+import Link from 'next/link'
+import {
+  Avatar,
+  Card,
+  CardHeader,
+  IconButton,
+  Paper,
+  Typography
+} from '@material-ui/core'
 import MessageForm from './form'
 import { ChatListItem } from '../list'
 import { messagesCollection } from '@services/database'
+import Routes from '@constants/routes'
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
 
 import styles from '../styles.module.scss'
 
@@ -15,6 +25,7 @@ export interface ChatMessage {
 }
 
 interface Props {
+  isMobile?: boolean
   currentUid: string
   chatId: string
   messages: ChatMessage[]
@@ -23,6 +34,7 @@ interface Props {
 }
 
 const Chat = ({
+  isMobile,
   currentUid,
   chatId,
   messages,
@@ -51,25 +63,34 @@ const Chat = ({
 
   return (
     <>
-      <Card className={styles.chatInfo} elevation={3}>
-        <CardHeader
-          className={styles.header}
-          disableTypography
-          avatar={
-            <Avatar
-              src={chatInfo?.avatar}
-              aria-label={chatInfo?.username.toLowerCase()}
-            >
-              {chatInfo?.username[0].toUpperCase() || 'NULL'}
-            </Avatar>
-          }
-          title={
-            <Typography className={styles.title} variant="body2">
-              {chatInfo?.username || 'NULL'}
-            </Typography>
-          }
-        />
-      </Card>
+      <Paper className={styles.chatInfo} elevation={3}>
+        {isMobile && (
+          <IconButton color="inherit" className={styles.backLink}>
+            <Link href={Routes.chats}>
+              <ArrowBackIcon />
+            </Link>
+          </IconButton>
+        )}
+        <Card elevation={0}>
+          <CardHeader
+            className={styles.header}
+            disableTypography
+            avatar={
+              <Avatar
+                src={chatInfo?.avatar}
+                aria-label={chatInfo?.username.toLowerCase()}
+              >
+                {chatInfo?.username[0].toUpperCase() || 'NULL'}
+              </Avatar>
+            }
+            title={
+              <Typography className={styles.title} variant="body2">
+                {chatInfo?.username || 'NULL'}
+              </Typography>
+            }
+          />
+        </Card>
+      </Paper>
       {error ? (
         <div className={styles.errorMessage}>{error}</div>
       ) : (

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { Container, Paper } from '@material-ui/core'
+import { Container, Paper, useMediaQuery } from '@material-ui/core'
 import Layout from '@common/layout'
 import Loader from '@components/loader'
 import Chat, { ChatMessage } from './chat'
@@ -41,7 +41,7 @@ const Chats: React.FC<Props> = ({
   const [messagesError, setMessagesError] = useState<string | null>(null)
   const [isMessagesLoaded, setIsMessagesLoaded] = useState(true)
 
-  console.log(messages)
+  const isMobile = useMediaQuery('(max-width:768px)')
 
   if (!currentUID) return null
 
@@ -101,29 +101,50 @@ const Chats: React.FC<Props> = ({
 
   const chatMessages = useMemo(getChatMessages, [messages, users])
 
+  const chatRoot = (
+    <div className={styles.chatRoot}>
+      {!chatId ? (
+        <div className={styles.errorMessage}>{'Select any chat'}</div>
+      ) : !isMessagesLoaded ? (
+        <div className={styles.errorMessage}>
+          <Loader small />
+        </div>
+      ) : (
+        <Chat
+          isMobile={isMobile}
+          currentUid={currentUID}
+          chatId={chatId}
+          messages={chatMessages}
+          error={messagesError}
+          chatListItems={chatListItems}
+        />
+      )}
+    </div>
+  )
+
+  const mobileView = (
+    <>
+      {!chatId ? (
+        <ChatsList isMobile={isMobile} chatId={chatId} chats={chatListItems} />
+      ) : (
+        chatRoot
+      )}
+    </>
+  )
+
   return (
     <Layout>
       <Container maxWidth="md">
         <Paper>
           <div className={styles.chatsRoot}>
-            <ChatsList chatId={chatId} chats={chatListItems} />
-            <div className={styles.chatRoot}>
-              {!chatId ? (
-                <div className={styles.errorMessage}>{'Select any chat'}</div>
-              ) : !isMessagesLoaded ? (
-                <div className={styles.errorMessage}>
-                  <Loader small />
-                </div>
-              ) : (
-                <Chat
-                  currentUid={currentUID}
-                  chatId={chatId}
-                  messages={chatMessages}
-                  error={messagesError}
-                  chatListItems={chatListItems}
-                />
-              )}
-            </div>
+            {isMobile ? (
+              mobileView
+            ) : (
+              <>
+                <ChatsList chatId={chatId} chats={chatListItems} />
+                {chatRoot}
+              </>
+            )}
           </div>
         </Paper>
       </Container>

@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import {
   Box,
   List,
@@ -20,11 +21,12 @@ export interface ChatListItem {
 }
 
 interface Props {
+  isMobile?: boolean
   chatId?: string
   chats: ChatListItem[]
 }
 
-const ChatsList = ({ chatId, chats }: Props) => {
+const ChatsList = ({ isMobile, chatId, chats }: Props) => {
   const renderChats = chats.length ? (
     chats.map((chat, i) => (
       <Link
@@ -54,8 +56,8 @@ const ChatsList = ({ chatId, chats }: Props) => {
 
   return (
     <Box
-      borderRight={1}
-      className={styles.chatsListRoot}
+      borderRight={!isMobile ? 1 : undefined}
+      className={classNames(styles.chatsListRoot, isMobile && styles.mobile)}
       borderColor="text.disabled"
     >
       <List>{renderChats}</List>
