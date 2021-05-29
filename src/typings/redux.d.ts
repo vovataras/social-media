@@ -24,9 +24,16 @@ type PostsAction = import('@redux/posts/types').Action
 type UsersActionType = import('@redux/users/types').default
 type UsersAction = import('@redux/users/types').Action
 
-export type AnyActionType = AuthActionType | PostsActionType | UsersActionType
+type ChatsActionType = import('@redux/chats/types').default
+type ChatsAction = import('@redux/chats/types').Action
 
-export type AnyAction = AuthAction | PostsAction | UsersAction
+export type AnyActionType =
+  | AuthActionType
+  | PostsActionType
+  | UsersActionType
+  | ChatsActionType
+
+export type AnyAction = AuthAction | PostsAction | UsersAction | ChatsAction
 
 type CoreReduxAction<T = unknown> = import('redux').Action<T>
 

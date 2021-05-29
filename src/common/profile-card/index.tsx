@@ -10,6 +10,7 @@ import {
   useMediaQuery
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
+import MessageIcon from '@material-ui/icons/Telegram'
 
 import styles from './styles.module.scss'
 
@@ -17,16 +18,18 @@ interface Props {
   username: string
   avatar?: string
   description?: string
-  showSettings?: boolean
+  isOwner?: boolean
   handleSettingsClick?: () => void
+  handleSendMessageButtonClick?: () => void
 }
 
 const ProfileCard: React.FC<Props> = ({
   username,
   avatar,
   description,
-  showSettings,
-  handleSettingsClick
+  isOwner,
+  handleSettingsClick,
+  handleSendMessageButtonClick
 }) => {
   const theme = useTheme()
   const mobileXS = useMediaQuery('(max-width:400px)')
@@ -54,7 +57,7 @@ const ProfileCard: React.FC<Props> = ({
           </Avatar>
         }
         action={
-          showSettings && (
+          isOwner ? (
             <Tooltip title="Edit profile" aria-label="profile settings">
               <IconButton
                 aria-controls="simple-menu"
@@ -62,6 +65,12 @@ const ProfileCard: React.FC<Props> = ({
                 onClick={handleSettingsClick}
               >
                 <EditIcon />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Send message" aria-label="send message">
+              <IconButton onClick={handleSendMessageButtonClick}>
+                <MessageIcon />
               </IconButton>
             </Tooltip>
           )

@@ -1,9 +1,18 @@
 import { firestore } from './firebase'
-import { Comment, CommentCreate, Post, PostCreate, User } from '@typings'
+import {
+  Comment,
+  CommentCreate,
+  Post,
+  PostCreate,
+  User,
+  Chat,
+  MessageCreate
+} from '@typings'
 
 const usersCollectionRef = firestore.collection('users')
 const postsCollectionRef = firestore.collectionGroup('posts')
 const commentsCollectionRef = firestore.collectionGroup('comments')
+const chatsCollectionRef = firestore.collection('chats')
 
 const usersCollection = {
   create: (user: User) => {
@@ -115,9 +124,56 @@ const commentsCollection = {
       .collection('comments')
 }
 
+const chatsCollection = {
+  create: async (uid: string, anotherUid: string) => {
+    const newChatRef = chatsCollectionRef.doc()
+    await newChatRef.set({
+      id: newChatRef.id,
+      members: [uid, anotherUid],
+      date: new Date().toJSON()
+    })
+
+    return newChatRef.id
+  },
+  ref: chatsCollectionRef
+}
+
+const messagesCollection = {
+  create: (chatId: string, message: MessageCreate) => {
+    const chatRef = chatsCollectionRef.doc(chatId)
+
+    const newMessageRef = chatRef.collection('messages').doc()
+
+    const date = new Date().toJSON()
+
+    newMessageRef.set({
+      id: newMessageRef.id,
+      date: date,
+      ...message
+    })
+
+    return firestore.runTransaction((transaction) => {
+      return transaction.get(chatRef).then((chatDoc) => {
+        if (chatDoc.exists) {
+          const chat = chatDoc.data() as Chat
+
+          chat.lastMessage = message.content
+          chat.date = date
+
+          transaction.update(chatRef, chat)
+        }
+      })
+    })
+  },
+  getRef: (chatId: string) =>
+    chatsCollectionRef.doc(chatId).collection('messages')
+}
+
 export {
   usersCollection,
   postsCollection,
   userPostsCollection,
-  commentsCollection
+  commentsCollection,
+  chatsCollection,
+  messagesCollection
 }

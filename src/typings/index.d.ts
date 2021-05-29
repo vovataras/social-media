@@ -53,3 +53,20 @@ export interface CommentWithUser {
   commentText: string
   date: string
 }
+
+export interface MessageCreate {
+  authorUid: string
+  content: string
+}
+
+export interface Message extends MessageCreate {
+  id: string
+  date: string
+}
+
+export interface Chat {
+  id: string
+  members: string[]
+  date: string
+  lastMessage?: string
+}

@@ -5,7 +5,9 @@ enum Routes {
   addPost = '/add-post',
   post = '/post/[id]',
   profile = '/profile',
-  profileId = '/profile/[id]'
+  profileId = '/profile/[id]',
+  chats = '/chats',
+  chatsId = '/chats/[id]'
 }
 
 export default Routes

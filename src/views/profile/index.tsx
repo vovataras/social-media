@@ -1,11 +1,11 @@
 // TODO: refactor
 import React, { useState, useMemo } from 'react'
-import { Post as PostType, ReduxState, User } from '@typings'
+import { Chat, Post as PostType, ReduxState, User } from '@typings'
 import { connect, ConnectedProps } from 'react-redux'
 // import LayoutPreloader from '../../modules/LayoutPreloader'
 import EditProfile, { FormValues } from './edit-profile'
 import { FormikHelpers } from 'formik'
-import { usersCollection } from '@services/database'
+import { chatsCollection, usersCollection } from '@services/database'
 import { Paper } from '@material-ui/core'
 import { uploadPhoto } from '@services/upload'
 // import ErrorPaper from '../../elements/ErrorPaper'
@@ -13,9 +13,11 @@ import { uploadPhoto } from '@services/upload'
 import Error from 'next/error'
 import Post from '@common/post'
 import Loader from '@components/loader'
+import { useRouter } from 'next/router'
 
 import styles from './styles.module.scss'
 import ProfileView from './view'
+import Routes from '@constants/routes'
 
 let mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
@@ -48,6 +50,8 @@ const Profile: React.FC<Props> = ({
   //   items: [] as Post[],
   //   error: null as string | null
   // })
+
+  const router = useRouter()
 
   let isOwner = false
   let userData: User | undefined = undefined
@@ -118,6 +122,33 @@ const Profile: React.FC<Props> = ({
 
   const handleSettingsClick = () => {
     setOpen(true)
+  }
+
+  const handleSendMessageButtonClick = async () => {
+    try {
+      const snapshot = await chatsCollection.ref
+        .where('members', 'in', [
+          [user.uid, userData?.uid],
+          [user.uid, userData?.uid]
+        ])
+        .get()
+
+      let chatId: string
+
+      if (!snapshot.empty) {
+        const chats = snapshot.docs.map((doc) => doc.data() as Chat)
+        chatId = chats[0].id
+      } else {
+        chatId = await chatsCollection.create(user.uid, userData?.uid!)
+      }
+
+      router.push({
+        pathname: Routes.chatsId,
+        query: { id: chatId }
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleFormSubmit = async (
@@ -196,8 +227,9 @@ const Profile: React.FC<Props> = ({
         avatar={userData?.avatar ? userData?.avatar : undefined}
         description={userData?.status}
         content={content}
-        showSettings={isOwner}
+        isOwner={isOwner}
         handleSettingsClick={handleSettingsClick}
+        handleSendMessageButtonClick={handleSendMessageButtonClick}
       />
       {isOwner && (
         <EditProfile

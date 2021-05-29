@@ -13,6 +13,7 @@ import { signOut } from '@redux/auth/actions'
 import { connect, ConnectedProps } from 'react-redux'
 import Link from 'next/link'
 import ProfileMenu from './profile-menu'
+import ChatsIcon from '@material-ui/icons/Telegram'
 
 import styles from './styles.module.scss'
 
@@ -35,11 +36,18 @@ const Header: React.FC<Props> = ({ signOut }) => {
             </Link>
           </Typography>
           <Tooltip title="Add new post" aria-label="add new post">
-            <Link href={Routes.addPost}>
-              <IconButton color="inherit">
+            <IconButton color="inherit">
+              <Link href={Routes.addPost}>
                 <AddAPhotoIcon />
-              </IconButton>
-            </Link>
+              </Link>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Chats" aria-label="chats">
+            <IconButton color="inherit">
+              <Link href={Routes.chats}>
+                <ChatsIcon />
+              </Link>
+            </IconButton>
           </Tooltip>
           <ProfileMenu onSignOut={signOut} />
         </Toolbar>
