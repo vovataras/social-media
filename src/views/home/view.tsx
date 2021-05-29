@@ -1,17 +1,16 @@
-import { Container } from '@material-ui/core'
+import ResponsiveContainer from '@common/responsive-container'
 
 import styles from './styles.module.scss'
 
 interface Props {
-  isMobile: boolean
   posts: JSX.Element[]
 }
 
-const View: React.FC<Props> = ({ isMobile, posts }) => {
+const View: React.FC<Props> = ({ posts }) => {
   return (
-    <Container maxWidth="sm" disableGutters={isMobile}>
+    <ResponsiveContainer maxWidth="sm">
       <div className={styles.feed}>{posts}</div>
-    </Container>
+    </ResponsiveContainer>
   )
 }
 

@@ -1,4 +1,6 @@
-import { Container, Paper, Typography } from '@material-ui/core'
+import React from 'react'
+import { Paper, Typography } from '@material-ui/core'
+import ResponsiveContainer from '@common/responsive-container'
 import Link from 'next/link'
 
 import styles from './styles.module.scss'
@@ -12,7 +14,7 @@ interface Props {
 const AuthContainer: React.FC<Props> = ({ children, linkTo, linkMessage }) => {
   return (
     <div className={styles.authPage}>
-      <Container maxWidth="xs">
+      <ResponsiveContainer maxWidth="xs">
         <Paper className={styles.paper} elevation={3}>
           <Typography component="h1" variant="h5" className={styles.title}>
             {'Social Media'}
@@ -22,7 +24,7 @@ const AuthContainer: React.FC<Props> = ({ children, linkTo, linkMessage }) => {
             <a className={styles.link}>{linkMessage}</a>
           </Link>
         </Paper>
-      </Container>
+      </ResponsiveContainer>
     </div>
   )
 }

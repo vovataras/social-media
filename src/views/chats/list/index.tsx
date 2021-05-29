@@ -51,7 +51,7 @@ const ChatsList = ({ isMobile, chatId, chats }: Props) => {
       </Link>
     ))
   ) : (
-    <div>{'There are not any chats!'}</div>
+    <div className={styles.error}>{'There are not any chats!'}</div>
   )
 
   return (

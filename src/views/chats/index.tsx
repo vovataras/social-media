@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { Container, Paper, useMediaQuery } from '@material-ui/core'
+import { Paper, useMediaQuery } from '@material-ui/core'
 import Layout from '@common/layout'
 import Loader from '@components/loader'
+import ResponsiveContainer from '@common/responsive-container'
 import Chat, { ChatMessage } from './chat'
 import ChatsList, { ChatListItem } from './list'
 import { subscribeMessages } from '@services/listeners'
@@ -134,7 +135,7 @@ const Chats: React.FC<Props> = ({
 
   return (
     <Layout>
-      <Container maxWidth="md">
+      <ResponsiveContainer maxWidth="md">
         <Paper>
           <div className={styles.chatsRoot}>
             {isMobile ? (
@@ -147,7 +148,7 @@ const Chats: React.FC<Props> = ({
             )}
           </div>
         </Paper>
-      </Container>
+      </ResponsiveContainer>
     </Layout>
   )
 }

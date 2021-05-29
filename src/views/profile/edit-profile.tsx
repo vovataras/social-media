@@ -10,6 +10,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import styles from './styles.module.scss'
+import { useMediaQuery } from '@material-ui/core'
 
 const EditProfileSchema = Yup.object().shape({
   username: Yup.string()
@@ -46,6 +47,8 @@ const EditProfile: React.FC<Props> = ({
   setImgFile,
   handleSubmit
 }) => {
+  const fullScreen = useMediaQuery('(max-width: 425px)')
+
   const initialValues: FormValues = {
     username: usernameVal ? usernameVal : '',
     description: descriptionVal ? descriptionVal : ''
@@ -77,6 +80,7 @@ const EditProfile: React.FC<Props> = ({
       open={open}
       onClose={handleClose}
       aria-labelledby="edit-profile-dialog-title"
+      fullScreen={fullScreen}
     >
       <DialogTitle id="edit-profile-dialog-title">Edit profile</DialogTitle>
       <form onSubmit={formik.handleSubmit}>

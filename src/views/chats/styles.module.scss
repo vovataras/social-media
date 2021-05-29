@@ -17,6 +17,10 @@
     max-width: 100%;
   }
 
+  .error {
+    padding: rem(10px) rem(20px);
+  }
+
   :global(.MuiListItemText-secondary) {
     overflow-x: hidden;
   }

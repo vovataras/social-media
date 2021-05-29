@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button, Container } from '@material-ui/core'
+import { Button } from '@material-ui/core'
+import ResponsiveContainer from '@common/responsive-container'
 import Comment from '@common/comment'
 import CommentForm from '@common/comment-form'
 import PostCard from '@common/post-card'
@@ -44,7 +45,7 @@ const PostView: React.FC<Props> = ({
 
   return (
     <div className={styles.root}>
-      <Container maxWidth="sm">
+      <ResponsiveContainer maxWidth="sm">
         <Button
           classes={{
             root: styles.back
@@ -70,7 +71,7 @@ const PostView: React.FC<Props> = ({
         />
         {renderItems}
         <CommentForm elevation={5} onSubmit={handleCommentSubmit} />
-      </Container>
+      </ResponsiveContainer>
     </div>
   )
 }

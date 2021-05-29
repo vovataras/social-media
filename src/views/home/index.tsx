@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { useMediaQuery } from '@material-ui/core'
 import Loader from '@components/loader'
 import Layout from '@common/layout'
 import Post, { PostProps } from '@common/post'
@@ -31,8 +30,6 @@ const HomeView: React.FC<Props> = ({
   postsError,
   posts
 }) => {
-  const isMobile = useMediaQuery('(max-width: 425px)')
-
   const getPostsData = () => {
     if (currentUID) {
       const postsData: Array<PostProps> = posts.map((post) => ({
@@ -57,7 +54,7 @@ const HomeView: React.FC<Props> = ({
       {!isUsersLoaded && !isPostsLoaded && <Loader small />}
       {usersError && <>{usersError}</>}
       {postsError && <>{postsError}</>}
-      <View isMobile={isMobile} posts={renderItems} />
+      <View posts={renderItems} />
     </Layout>
   )
 }

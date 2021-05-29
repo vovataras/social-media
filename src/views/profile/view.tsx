@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container } from '@material-ui/core'
 import Layout from '@common/layout'
+import ResponsiveContainer from '@common/responsive-container'
 import ProfileCard from '@common/profile-card'
 
 import styles from './styles.module.scss'
@@ -26,7 +26,7 @@ const ProfileView: React.FC<Props> = ({
 }) => {
   return (
     <Layout>
-      <Container maxWidth="sm">
+      <ResponsiveContainer maxWidth="sm">
         <div className={styles.profile}>
           <ProfileCard
             username={username ? username : 'NULL'}
@@ -38,7 +38,7 @@ const ProfileView: React.FC<Props> = ({
           />
           {content}
         </div>
-      </Container>
+      </ResponsiveContainer>
     </Layout>
   )
 }
